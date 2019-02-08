@@ -1,5 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import {AppContext} from '../../Context'
+
 
 const Navbar = props => {
   return (
@@ -8,14 +10,18 @@ const Navbar = props => {
         <div className="nav-wrapper">
           <Link to="/" className="brand-logo">Logo</Link>
           <ul className="right">
-          {!props.user ? (
+          <AppContext.Consumer>
+          {value => {
+            const {currentUser, handleLogout} = value;
+            return !currentUser ? (
             <>
             <li><Link to="/register" className="waves-effect waves-light btn">Register</Link></li>
             <li><Link id="login-button" to="/login" className="waves-effect waves-light btn">Login</Link></li>
             </>
           ):(
-            <li><Link to="/" id="logout-button" className="waves-effect waves-light btn" >Log Out</Link></li>
-          )}
+            <li><a id="logout-button" onClick={handleLogout} className="waves-effect waves-light btn" href="#!">Log Out</a></li>
+          )}}
+          </AppContext.Consumer>
           </ul>
         </div>
       </nav>
