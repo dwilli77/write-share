@@ -4,6 +4,7 @@ const Schema = mongoose.Schema;
 const podSchema = new Schema({
   topic: { type: Text, required: true },
   userID: { type: String, required: true},
+  podName: { type: String, required: true, unique: true},
   creator: { type: String, required: true },
   numParticipants: { type: Number, required: true },
   actParticipant: { type: String, required: true },
