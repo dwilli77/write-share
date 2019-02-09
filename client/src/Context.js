@@ -4,7 +4,8 @@ const AppContext = React.createContext();
 
 class AppProvider extends React.Component {
     state = {
-        currentUser: ""
+        currentUser: "",
+        currentUserId: null
     }
 
     handleLogin = (email,password) => {
@@ -14,12 +15,12 @@ class AppProvider extends React.Component {
         //     this.setState({user: res.username})
         // })
         console.log(email,password)
-        this.setState({currentUser: email})
+        this.setState({currentUser: email, currentUserId:1})
     }
 
     handleLogout = () => {
+        console.log('this ran')
         this.setState({currentUser: ""})
-        console.log(this.state.currentUser)
     }
 
     render() {
@@ -27,7 +28,7 @@ class AppProvider extends React.Component {
             <AppContext.Provider value={{
                 currentUser: this.state.currentUser,
                 handleLogin: this.handleLogin,
-                handleLogout: this.handlelogout
+                handleLogout: this.handleLogout
                 }}>
                 {this.props.children}
             </AppContext.Provider>

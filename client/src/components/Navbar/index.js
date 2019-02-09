@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import {AppContext} from '../../Context'
+import { AppContext } from '../../Context'
 
 
 const Navbar = props => {
@@ -19,7 +19,7 @@ const Navbar = props => {
             <li><Link id="login-button" to="/login" className="waves-effect waves-light btn">Login</Link></li>
             </>
           ):(
-            <li><a id="logout-button" onClick={handleLogout} className="waves-effect waves-light btn" href="#!">Log Out</a></li>
+            <li><button id="logout-button" onClick={handleLogout} className="waves-effect waves-light btn" >Log Out</button></li>
           )}}
           </AppContext.Consumer>
           </ul>

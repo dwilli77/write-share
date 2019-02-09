@@ -1,4 +1,5 @@
 import React from 'react'
+import {Link} from 'react-router-dom'
 
 const UserSidebar = props => {
     return (
@@ -6,7 +7,7 @@ const UserSidebar = props => {
             <h4>{props.user}</h4>
             <a href="#!" className="collection-item">Home</a>
             <a href="#!" className="collection-item">Bio</a>
-            <a href="#!" className="collection-item">My Pods</a>
+            <Link to="/mypods" className="collection-item">My Pods</Link>
             <a href="#!" className="collection-item">Create Pod</a>
             <a href="#!" className="collection-item">Search Pods</a>
             <a href="#!" className="collection-item">Notes</a>

@@ -6,6 +6,7 @@ import StaticSidebar from './components/StaticSidebar'
 import Welcome from './pages/Welcome'
 import Register from './pages/Register'
 import Dashboard from './pages/Dashboard'
+import MyPods from './pages/MyPods'
 import Login from './pages/Login'
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
@@ -20,11 +21,14 @@ class App extends Component {
             <div className="col s10">
               <AppContext.Consumer>
                 {({currentUser}) => (
-                <Route exact path="/" component={currentUser ? Dashboard : Welcome} />
-                )}
+                  <>
+                    <Route exact path="/" component={currentUser ? Dashboard : Welcome} />
+                    <Route exact path="/register" component={Register} />
+                    <Route exact path="/login" component={Login} />
+                    <Route exact path="/mypods" component={MyPods} />
+                  </>
+              )}
               </AppContext.Consumer>
-              <Route exact path="/register" component={Register} />
-              <Route exact path="/login" component={Login} />
             </div>
             <StaticSidebar />
           </div>
