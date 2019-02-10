@@ -37,7 +37,7 @@ class Login extends React.Component {
                         </div>
                     </div>
                     
-                    <button className="btn waves-effect waves-light btn-large right" type="submit" onClick={() => handleLogin(this.state.email,this.state.password)}>Submit
+                    <button className="btn waves-effect waves-light btn-large right"  onClick={() => handleLogin(this.state.email,this.state.password)}>Submit
                             <i className="material-icons right">send</i>
                     </button>
 
