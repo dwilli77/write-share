@@ -9,6 +9,7 @@ import Dashboard from './pages/Dashboard'
 import MyPods from './pages/MyPods'
 import Login from './pages/Login'
 import CreatePod from './pages/CreatePod'
+import SearchPods from './pages/SearchPods'
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 
 class App extends Component {
@@ -52,6 +53,13 @@ class App extends Component {
                         <Redirect to="/" />
                       ) : (
                         <CreatePod userId={currentUserId} user={currentUser} handleNewPod={handleNewPod} />
+                      )
+                      )} />
+                      <Route exact path="/search" render={() => (
+                      !currentUser ? (
+                        <Redirect to="/" />
+                      ) : (
+                        <SearchPods />
                       )
                       )} />
                   </>

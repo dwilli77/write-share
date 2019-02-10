@@ -8,7 +8,7 @@ const podSchema = new Schema({
   numParticipants: { type: Number, required: true },
   activeParticipant: { type: String, required: false },
   totalParticipants: [{ type: String, required: false }], 
-  createDate: {type: Date, required: true}
+  createDate: {type: Date, required: false}
 });
 
 const Pod = mongoose.model("Pod", podSchema);

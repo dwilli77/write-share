@@ -33,6 +33,9 @@ class Register extends React.Component {
                 return (
         <div className="container">
             <div className="row">
+                <h4>New User Registration</h4>
+            </div>
+            <div className="row">
                 <div className="col s12">
                     <div className="row">
                         <div className="input-field col s12">
