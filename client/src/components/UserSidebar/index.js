@@ -8,7 +8,7 @@ const UserSidebar = props => {
             <Link to="/" className="collection-item">Home</Link>
             <a href="#!" className="collection-item">Bio</a>
             <Link to="/mypods" className="collection-item">My Pods</Link>
-            <a href="#!" className="collection-item">Create Pod</a>
+            <Link to="/create" className="collection-item">Create Pod</Link>
             <a href="#!" className="collection-item">Search Pods</a>
         </div>
     )
