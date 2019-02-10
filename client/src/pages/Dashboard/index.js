@@ -11,10 +11,10 @@ class Dashboard extends React.Component {
                 {(context) => {
                     return(
                         <>
-                            <UserSidebar user={context.currentUser} />
-                            <p className="col s10">
-                                this will be the main dashboard
-                            </p>
+                            <UserSidebar />
+                            <div className="col s10">
+                                <h4>This is my Dashboard</h4>
+                            </div>
                         </>
                     )}}
             </AppContext.Consumer>

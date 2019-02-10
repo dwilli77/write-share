@@ -10,6 +10,12 @@ class AppProvider extends React.Component {
         failValidation:false
     }
 
+    handleNewPod = (userId, name, topic, numParticipants) => {
+        console.log('this will create a new pod')
+        console.log(userId, name, topic, numParticipants);
+        // API post request to make a new pod
+    }
+
     handleRegister = (email, username, password,about_me) => {
         console.log('this ran');
         
@@ -56,7 +62,8 @@ class AppProvider extends React.Component {
                 currentUserId: this.state.currentUserId,
                 handleLogin: this.handleLogin,
                 handleLogout: this.handleLogout,
-                handleRegister: this.handleRegister
+                handleRegister: this.handleRegister,
+                handleNewPod: this.handleNewPod
                 }}>
                 {this.props.children}
             </AppContext.Provider>

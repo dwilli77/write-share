@@ -23,6 +23,9 @@ class Login extends React.Component {
                 return(
                 <div className="container login-form">
                     <div className="row">
+                        <h4>Log In Here</h4>
+                    </div>
+                    <div className="row">
                         <div className="input-field col s12">
                             <i className="material-icons prefix">computer</i>
                             <input id="email" type="email" className="validate" name="email" onChange={this.handleInputChange} value={this.state.email}/>

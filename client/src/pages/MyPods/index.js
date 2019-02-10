@@ -17,7 +17,9 @@ class MyPods extends React.Component {
     return (
         <>
             <UserSidebar />
-            <nav className="col s10" id="my-pod-searchbar">
+            <div className="col s10">
+            <div className="container">         
+            <nav id="my-pod-searchbar">
                 <div className="nav-wrapper">
                 <form>
                     <div className="input-field">
@@ -28,7 +30,10 @@ class MyPods extends React.Component {
                 </form>
                 </div>
             </nav>
+            <h4>My Current Pods</h4>
             <MyPodsTable pods={[{name: "test", id:1, topic:"test123", active_participant:"Derek"}]} />
+            </div>
+            </div>
         </>
     )
     }

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 const MyPodsTable = props => {
 
     return (
-        <div className="col s10 container">
+        <div className="col s12 container">
         <table>
         <thead>
           <tr>
