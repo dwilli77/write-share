@@ -20,7 +20,9 @@ class App extends Component {
           <div className="row content-area">
             <div className="col s10">
               <AppContext.Consumer>
-                {({currentUser}) => (
+                {value => {
+                  const {currentUser, currentUserId} = value
+                  return(
                   <>
                     <Route exact path="/" component={currentUser ? Dashboard : Welcome} />
                     <Route exact path="/register" render={() => (
@@ -39,13 +41,14 @@ class App extends Component {
                       )} />
                     <Route exact path="/mypods" render={() => (
                       currentUser ? (
-                        <MyPods/>
+                        <MyPods userId={currentUserId}/>
                       ) : (
                         <Redirect to="/" />
                       )
                     )} />
                   </>
-              )}
+                  
+              )}}
               </AppContext.Consumer>
             </div>
             <StaticSidebar />

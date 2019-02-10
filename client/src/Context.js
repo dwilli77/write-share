@@ -1,21 +1,47 @@
 import React from 'react';
+import API from './utils/API'
 
 const AppContext = React.createContext();
 
 class AppProvider extends React.Component {
     state = {
         currentUser: "",
-        currentUserId: null
+        currentUserId: null,
+        failValidation:false
+    }
+
+    handleRegister = (email, username, password,about_me) => {
+        console.log('this ran');
+        
+        API.register({
+            email: email,
+            username: username,
+            password: password,
+            aboutMe: about_me
+        }).then(res => {
+            console.log(res)
+            if (res.status === 200 && res.data !== 'user already exists'){
+                this.setState({currentUser: res.data.username,currentUserId:res.data._id, failValidation: false})
+            } else {
+                console.log("couldn't log in")
+            }
+        }).catch(err=> console.log(err))
     }
 
     handleLogin = (email,password) => {
-        // api call to log in user => send back the username
-
-        // .then(res => {
-        //     this.setState({user: res.username})
-        // })
-        console.log(email,password)
-        this.setState({currentUser: email, currentUserId:1})
+        API.login({
+            email: email,
+            password: password
+        })
+        .then(res => {
+            console.log(res)
+            if (res.data === 'no user' || res.data === 'incorrect password') {
+                return;
+            }else{
+                this.setState({currentUser: res.data.username, currentUserId:res.data._id})
+            }
+        })
+        .catch(err => console.log(err))
     }
 
     handleLogout = () => {
@@ -27,8 +53,10 @@ class AppProvider extends React.Component {
         return (
             <AppContext.Provider value={{
                 currentUser: this.state.currentUser,
+                currentUserId: this.state.currentUserId,
                 handleLogin: this.handleLogin,
-                handleLogout: this.handleLogout
+                handleLogout: this.handleLogout,
+                handleRegister: this.handleRegister
                 }}>
                 {this.props.children}
             </AppContext.Provider>
