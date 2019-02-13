@@ -14,6 +14,20 @@ class AppProvider extends React.Component {
         console.log('this will create a new pod')
         console.log(userId, name, topic, numParticipants);
         // API post request to make a new pod
+        API.createPod({
+            topic: topic,
+            name: name,
+            creator: this.state.currentUser,
+            numParticipants: numParticipants,
+            activeParticipant: this.state.currentUser,
+            totalParticipants: [this.state.currentUser]
+
+        }).then(res => {
+            console.log('pod created')
+        })
+        .catch(err => {
+            console.log(err)
+        })
     }
 
     handleRegister = (email, username, password,about_me) => {
