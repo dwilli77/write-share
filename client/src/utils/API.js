@@ -7,5 +7,8 @@ export default {
   },
   register: function(userData) {
       return axios.post("/api/user/new", userData)
+  },
+  createPod: function(podData) {
+    return axios.post("api/pod", podData)
   }
 };
