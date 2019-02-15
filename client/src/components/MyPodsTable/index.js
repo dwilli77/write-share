@@ -17,10 +17,10 @@ const MyPodsTable = props => {
         <tbody>
             {props.pods.map(pod => {
                 return(
-                <tr key={pod.id}>
-                    <td><Link to={"./pods/"+pod.id}>{pod.name}</Link></td>
+                <tr key={pod._id}>
+                    <td><Link to={"./pods/"+pod._id}>{pod.name}</Link></td>
                     <td>{pod.topic}</td>
-                    <td>{pod.active_participant}</td>
+                    <td>{pod.activeParticipant}</td>
                 </tr>
                 )
             })}

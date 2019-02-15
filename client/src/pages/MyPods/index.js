@@ -1,17 +1,25 @@
 import React from 'react'
 import MyPodsTable from '../../components/MyPodsTable'
 import UserSidebar from '../../components/UserSidebar'
+import API from '../../utils/API'
 
 class MyPods extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {userId: props.userId};
+        this.state = {userId: props.userId, pods: []};
       }
+
+    
 
     componentDidMount() {
         console.log(this.state.userId)
+        API.getMyPods({userId: this.state.userId})
+        .then(res => {
+            console.log(res)
+            this.setState({pods: res.data})
+        })
+        .catch(err => console.log(err))
     }
-    // API call to get all the pods associated with the current user, pass that array as props to the MyPodsTable, and the table will map over the array and use the information that it wants to display.
     
     render(){
     return (
@@ -31,7 +39,12 @@ class MyPods extends React.Component {
                 </div>
             </nav>
             <h4>My Current Pods</h4>
-            <MyPodsTable pods={[{name: "test", id:1, topic:"test123", active_participant:"Derek"}]} />
+            {this.state.pods.length ? (
+            <MyPodsTable pods={this.state.pods} />
+            ) : (
+                <p>No Current Pods</p>
+            )
+            }
             </div>
             </div>
         </>
