@@ -63,11 +63,11 @@ class App extends Component {
                         <SearchPods />
                       )
                       )} />
-                      <Route exact path="/pod/:id" render={() => (
+                      <Route path="/pods/:id" render={(props) => (
                       !currentUser ? (
                         <Redirect to="/" />
                       ) : (
-                        <Pod />
+                        <Pod {...props}/>
                       )
                       )} />
                   </>

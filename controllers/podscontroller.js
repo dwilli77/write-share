@@ -17,9 +17,33 @@ module.exports = {
   // },
   create: function(req, res) {
     db.Pod
-      .create(req.body)
-      .then(result => res.json(result))
+      .create({
+        topic: req.body.topic,
+        name: req.body.name,
+        creator: req.body.creator,
+        creatorId: req.body.creatorId,
+        numParticipants: req.body.numParticipants,
+        activeParticipant: req.body.activeParticipant,
+        totalParticipants: req.body.totalParticipants,
+        participantIds: req.body.participantIds
+      })
+      .then(result => {
+        return db.User.findOneAndUpdate({_id: req.body.userId}, {$push: {userPods: result._id}}, {new: true})
+      })
+      .then(dbUser => res.json(dbUser))
       .catch(err => res.status(422).json(err));
+  },
+  getMyPods: function(req, res) {
+    db.Pod
+      .find({ participantIds: req.body.userId})
+      .then(result => res.json(result))
+      .catch(err=> res.status(422).json(err))
+  },
+  getOnePod: function(req, res) {
+    db.Pod
+      .findById({_id: req.body.podId})
+      .then(result => res.json(result))
+      .catch(err => res.status(422).json(err))
   }
   // update: function(req, res) {
   //   db.Pod
