@@ -1,7 +1,22 @@
 import React from 'react'
 import UserSidebar from '../../components/UserSidebar'
+import {Link} from 'react-router-dom'
+import API from '../../utils/API';
 
-const SearchPods = () => {
+class SearchPods extends React.Component {
+    state = {
+        pods: []
+    }
+
+    componentDidMount() {
+        API.findAll().then(res => {
+            this.setState({
+                pods: res.data
+            })
+        }).catch(err => console.log(err))
+    }
+
+    render() {
     return(
         <>
         <UserSidebar />
@@ -10,21 +25,44 @@ const SearchPods = () => {
             <h4>Search for Writing Pods</h4>
             <nav className="col s12" id="pod-searchbar">
                 <div className="nav-wrapper">
-                <form>
-                    <div className="input-field">
+                <div>
+                    <form className="input-field">
                     <input id="pod-search" type="search" placeholder="Search Pods Here" required />
                     <label className="label-icon" htmlFor="pod-search"><i className="material-icons">search</i></label>
                     <i className="material-icons">close</i>
-                    </div>
-                </form>
+                    </form>
+                </div>
                 </div>
             </nav>
-            <p>this doesn't do anything yet -- need to add an api call to search pods based on their name</p>
-            <p>maybe have a table below that displays pods where totalParticipants.length {"<"} numParticipants</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name:</th>
+                        <th>Topic:</th>
+                        <th>Creator:</th>
+                        <th>#:</th>
+                        <th>Max #:</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {this.state.pods.map(pod => {
+                    return (
+                        <tr key={pod._id}>
+                            <td><Link to={"./pods/"+pod._id}>{pod.name}</Link></td>
+                            <td>{pod.topic}</td>
+                            <td>{pod.creator}</td>
+                            <td>{pod.totalParticipants.length}</td>
+                            <td>{pod.numParticipants}</td>
+                        </tr>
+                    )
+                })}
+                </tbody>
+            </table>
+            
             </div>
         </div>
         </>
-    )
+    )}
 }
 
 export default SearchPods;

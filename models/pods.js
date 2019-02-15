@@ -10,7 +10,7 @@ const podSchema = new Schema({
   activeParticipant: { type: String, required: false },
   totalParticipants: [{ type: String, required: false }], 
   participantIds:[String],
-  createDate: {type: Date, required: false}
+  content: [{type: Schema.Types.ObjectId, ref: "Content"}]
 });
 
 const Pod = mongoose.model("Pod", podSchema);

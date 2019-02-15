@@ -7,7 +7,6 @@ class AppProvider extends React.Component {
     state = {
         currentUser: "",
         currentUserId: null,
-        failValidation:false
     }
 
     handleNewPod = (userId, name, topic, numParticipants) => {
@@ -67,8 +66,7 @@ class AppProvider extends React.Component {
     }
 
     handleLogout = () => {
-        console.log('this ran')
-        this.setState({currentUser: ""})
+        this.setState({currentUser: "", currentUserId: null})
     }
 
     render() {

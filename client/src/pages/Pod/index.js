@@ -16,13 +16,20 @@ class Pod extends React.Component {
             numParticipants: 0,
             participantIds: [],
             topic: "",
-            totalParticipants: []
+            totalParticipants: [],
+            content: [],
+            newContent: ""
         };
       }
 
     componentDidMount() {
+        this.getPodData()
+    }
+
+    getPodData = () => {
         API.getOnePod({podId: this.state.podId})
         .then(res => {
+            console.log(res);
             this.setState({
                 activeParticipant: res.data.activeParticipant,
                 creator: res.data.creator,
@@ -31,18 +38,70 @@ class Pod extends React.Component {
                 numParticipants: res.data.numParticipants,
                 participantIds: res.data.participantIds,
                 topic: res.data.topic,
-                totalParticipants: res.data.totalParticipants
-            }, ()=> console.log(this.state))
+                totalParticipants: res.data.totalParticipants,
+                content: res.data.content
+            })
         })
-        .catch(err => console.log(err))
+        .catch(err => console.log(err));
     }
 
-    yourTurn(username) {
-        return this.state.activeParticipant === username
+    handleInputChange = event => {
+        const name = event.target.name;
+        const value = event.target.value;
+        this.setState({
+          [name]: value
+        });
+      };
+
+    yourTurn = (username, id) => {
+        return (this.state.activeParticipant === username) && (this.state.participantIds.indexOf(id) > -1)
+    };
+
+    postContent = () => {
+        API.newContent({
+            contentText: this.state.newContent,
+            contentCreator: this.state.activeParticipant,
+            podId: this.state.podId
+        })
+        .then(res => this.iterateUser())
+        .catch(err=> console.log(err))
     }
 
-    // API call to get all data on given pod (passed via URL)
-    // need to add array of contentIds to Pod model and populate the content ids so that we can get all the posts htmlFor the pod thus far.
+    iterateUser = () => {
+        let currentIndex= this.state.totalParticipants.indexOf(this.state.activeParticipant);
+        let num = this.state.totalParticipants.length - 1;
+        let newIndex;
+
+        if(currentIndex === num) {
+            newIndex = 0
+        } else {
+            newIndex = currentIndex +1
+        }
+
+        API.nextUser({
+            newActive: this.state.totalParticipants[newIndex],
+            podId: this.state.podId
+        })
+        .then(res => {
+            this.getPodData()
+            // this.setState({
+            //     activeParticipant: res
+            // })
+        })
+    }
+
+    joinPod = (userId, username) => {
+        if(this.state.totalParticipants.length >= this.state.numParticipants) {
+            return;
+        }
+        API.joinPod({
+            userId: userId,
+            username: username,
+            podId: this.state.podId
+        })
+        .then(res => this.getPodData())
+        .catch(err => console.log(err));
+    }
 
     render() {
         return (
@@ -52,22 +111,45 @@ class Pod extends React.Component {
                     <>
                         <UserSidebar />
                         <div className="col s10">
-                        <PodNav podData={this.state} currentUserId={value.currentUserId} currentUser={value.currentUser}/>
+                        <PodNav iterateUser={this.iterateUser} joinPod={this.joinPod} podData={this.state} currentUserId={value.currentUserId} currentUser={value.currentUser}/>
                         {this.state.totalParticipants.length ? (<p>Pod Participants: {this.state.totalParticipants.join(", ")}</p>) : ("")}
                         <div className="row">
-                        <form className="col s12">
+                        <div className="col s12">
                             <div className="row">
                             <div className="input-field col s12">
-                                <textarea disabled={!this.yourTurn(value.currentUser)} id="textarea1" className="materialize-textarea" length="3000"></textarea>
+                                <textarea name="newContent" value={this.state.newContent} disabled={!this.yourTurn(value.currentUser, value.currentUserId)} id="textarea1" className="materialize-textarea" length="3000" onChange={this.handleInputChange}></textarea>
                                 <label htmlFor="textarea1">Your Content Here</label>
                             </div>
                             </div>
-                            <button disabled={!this.yourTurn(value.currentUser)} className="btn right">Post</button>
-                        </form>
+                            <button disabled={!this.yourTurn(value.currentUser, value.currentUserId)} className="btn right" onClick={this.postContent}>Post</button>
+                        </div>
                         </div>
 
                         <h3>Story Time:</h3>
-                        
+                        {!this.state.content.length ? (
+                            <div className="row">
+                                <div className="col s12">
+                                    <div className="card-panel teal">
+                                        <span className="white-text">No Content Yet!
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        ) : (
+                            this.state.content.map(block => {
+                                return(
+                                    <div className="row" key={block.contentText}>
+                                        <div className="col s12">
+                                            <div className="card-panel teal">
+                                            <p className="white-text">{block.contentText}
+                                            </p>
+                                            <p className="right">Written By: {block.contentCreator}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                )
+                            })
+                        )}
 
                         </div>
                     </>
