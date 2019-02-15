@@ -1,6 +1,5 @@
-const db = require("../models");
+const db = require("../models")
 
-// Defining methods for the booksController
 module.exports = {
   // findAll: function(req, res) {
   //   db.Pod
@@ -31,7 +30,7 @@ module.exports = {
         return db.User.findOneAndUpdate({_id: req.body.userId}, {$push: {userPods: result._id}}, {new: true})
       })
       .then(dbUser => res.json(dbUser))
-      .catch(err => res.status(422).json(err));
+      .catch(err => res.status(422).json(err))
   },
   getMyPods: function(req, res) {
     db.Pod
@@ -41,9 +40,28 @@ module.exports = {
   },
   getOnePod: function(req, res) {
     db.Pod
-      .findById({_id: req.body.podId})
+      .findById({_id: req.body.podId}).populate('content')
       .then(result => res.json(result))
-      .catch(err => res.status(422).json(err))
+      .catch(err => res.status(422).json(err));
+  },
+  nextUser: function(req, res) {
+    db.Pod
+      .findOneAndUpdate({_id: req.body.podId}, {$set: {activeParticipant: req.body.newActive}}, {new:true})
+      .then(result => res.send(result.activeParticipant))
+      .catch(err => res.status(422).json(err));
+  },
+  read: function(req,res) {
+    db.Pod
+    .find({}).then(result => res.json(result))
+  },
+  joinPod: function(req, res) {
+    db.Pod
+    .findOneAndUpdate({_id: req.body.podId}, {$push: {totalParticipants: req.body.username, participantIds: req.body.userId}}, {new:true})
+    .then(result => {
+      return db.User.findOneAndUpdate({_id: req.body.userId}, {$push: {userPods: req.body.podId}}, {new: true})
+    })
+    .then(dbUser => res.json(dbUser))
+    .catch(err => res.status(422).json(err))
   }
   // update: function(req, res) {
   //   db.Pod

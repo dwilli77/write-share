@@ -16,5 +16,17 @@ export default {
   },
   getOnePod: function(podId) {
     return axios.post("../api/pod/currentpod", podId)
+  },
+  newContent: function(content) {
+    return axios.post("../api/content", content)
+  },
+  nextUser: function(data) {
+    return axios.post("../api/pod/nextuser", data)
+  },
+  findAll: function() {
+    return axios.get("api/pod")
+  },
+  joinPod: function(data) {
+    return axios.post("../api/pod/join", data)
   }
 };

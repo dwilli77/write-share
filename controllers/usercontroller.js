@@ -1,6 +1,6 @@
 const db = require("../models");
 var CryptoJS = require("crypto-js")
-var SHA256 = require("crypto-js/sha256");
+var SHA256 = require("crypto-js/sha256")
 
 module.exports = {
     
