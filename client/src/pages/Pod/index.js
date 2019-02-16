@@ -121,7 +121,7 @@ class Pod extends React.Component {
                                 <label htmlFor="textarea1">Your Content Here</label>
                             </div>
                             </div>
-                            <button disabled={!this.yourTurn(value.currentUser, value.currentUserId)} className="btn right" onClick={this.postContent}>Post</button>
+                            <button disabled={!this.yourTurn(value.currentUser, value.currentUserId)} className="btn right green lighten-2 black-text" onClick={this.postContent}>Post<i className="material-icons right">add_circle_outline</i></button>
                         </div>
                         </div>
 
@@ -138,13 +138,16 @@ class Pod extends React.Component {
                         ) : (
                             this.state.content.map(block => {
                                 return(
-                                    <div className="row" key={block.contentText}>
-                                        <div className="col s12">
-                                            <div className="card-panel teal">
-                                            <p className="white-text">{block.contentText}
-                                            </p>
-                                            <p className="right">Written By: {block.contentCreator}</p>
+                                    <div class="row" key={block.contentText}>
+                                        <div class="col s12">
+                                        <div class="card blue-grey lighten-1">
+                                            <div class="card-content white-text">
+                                            <p className="white-text content-font">{block.contentText}</p>
                                             </div>
+                                            <div class="card-action">
+                                            <p className="written-by">Written By: {block.contentCreator}</p>
+                                            </div>
+                                        </div>
                                         </div>
                                     </div>
                                 )

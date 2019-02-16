@@ -11,5 +11,5 @@ module.exports = {
        .then(dbPod => res.json(dbPod))
        .catch(err=> res.status(422).json(err))
    }
-  }
+  };
   

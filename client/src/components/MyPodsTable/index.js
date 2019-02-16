@@ -5,7 +5,7 @@ const MyPodsTable = props => {
 
     return (
         <div className="col s12 container">
-        <table>
+        <table className="pod-table">
         <thead>
           <tr>
               <th>Name</th>
@@ -18,7 +18,7 @@ const MyPodsTable = props => {
             {props.pods.map(pod => {
                 return(
                 <tr key={pod._id}>
-                    <td><Link to={"./pods/"+pod._id}>{pod.name}</Link></td>
+                    <td className="pod-link"><Link to={"./pods/"+pod._id}>{pod.name}</Link></td>
                     <td>{pod.topic}</td>
                     <td>{pod.activeParticipant}</td>
                 </tr>
