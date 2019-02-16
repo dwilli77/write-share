@@ -23,18 +23,19 @@ class SearchPods extends React.Component {
         <div className="col s10">
             <div className="container">
             <h4>Search for Writing Pods</h4>
-            <nav className="col s12" id="pod-searchbar">
+            <nav id="pod-searchbar">
                 <div className="nav-wrapper">
-                <div>
-                    <form className="input-field">
-                    <input id="pod-search" type="search" placeholder="Search Pods Here" required />
+                <form>
+                    <div className="input-field">
+                    <input className="blue lighten-1" id="pod-search" type="search" placeholder="Search Pods Here" required />
                     <label className="label-icon" htmlFor="pod-search"><i className="material-icons">search</i></label>
                     <i className="material-icons">close</i>
-                    </form>
-                </div>
+                    </div>
+                </form>
                 </div>
             </nav>
-            <table>
+
+            <table className="pod-table">
                 <thead>
                     <tr>
                         <th>Name:</th>
@@ -48,7 +49,7 @@ class SearchPods extends React.Component {
                 {this.state.pods.map(pod => {
                     return (
                         <tr key={pod._id}>
-                            <td><Link to={"./pods/"+pod._id}>{pod.name}</Link></td>
+                            <td className="pod-link"><Link to={"./pods/"+pod._id}>{pod.name}</Link></td>
                             <td>{pod.topic}</td>
                             <td>{pod.creator}</td>
                             <td>{pod.totalParticipants.length}</td>

@@ -9,7 +9,6 @@ const UserSidebar = props => {
         <div className="collection col s2">
             <h4>{context.currentUser}</h4>
             <Link to="/" className="collection-item">Home</Link>
-            <Link to="/mybio" className="collection-item">Bio</Link>
             <Link to="/mypods" className="collection-item">My Pods</Link>
             <Link to="/create" className="collection-item">Create Pod</Link>
             <Link to="/search" className="collection-item">Search Pods</Link>

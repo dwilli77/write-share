@@ -31,7 +31,7 @@ class MyPods extends React.Component {
                 <div className="nav-wrapper">
                 <form>
                     <div className="input-field">
-                    <input id="search" type="search" placeholder="Search My Pods" required />
+                    <input className="blue lighten-1" id="search" type="search" placeholder="Search My Pods" required />
                     <label className="label-icon" htmlFor="search"><i className="material-icons">search</i></label>
                     <i className="material-icons">close</i>
                     </div>
