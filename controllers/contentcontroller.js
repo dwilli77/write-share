@@ -9,7 +9,7 @@ module.exports = {
        })
        .then(result => db.Pod.findOneAndUpdate({_id: req.body.podId}, { $push: {content: result._id}}, {new: true}))
        .then(dbPod => res.json(dbPod))
-       .catch(err=> res.status(422).json(err))
+       .catch(err=> res.status(422).json(err));
    }
   }
   
