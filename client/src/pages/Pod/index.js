@@ -87,9 +87,6 @@ class Pod extends React.Component {
         })
         .then(res => {
             this.getPodData()
-            // this.setState({
-            //     activeParticipant: res
-            // })
         })
     }
 

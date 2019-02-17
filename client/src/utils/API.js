@@ -28,5 +28,8 @@ export default {
   },
   joinPod: function(data) {
     return axios.post("../api/pod/join", data)
+  },
+  findYourTurn: function(data) {
+    return axios.post('api/pod/yourturn', data)
   }
 };
