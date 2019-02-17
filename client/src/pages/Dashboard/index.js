@@ -7,7 +7,9 @@ import {Link} from 'react-router-dom'
 
 class Dashboard extends React.Component {
     state = {
-        pods: []
+        pods: [],
+        currentUser: "",
+        currentUserId: ""
     }
 
     findYourTurn = (id,username) => {
@@ -30,10 +32,9 @@ class Dashboard extends React.Component {
                                 <h4>Hi {context.currentUser}! Welcome to Write Share!</h4>
                                 <p>Search, Create, and Navigate Pods on the left sidebar</p>
                                 <h5>It's your turn in these Pods:</h5>
-                                {this.findYourTurn(context.currentUserId, context.currentUser)}
                                 {this.state.pods.length ? (this.state.pods.map(pod => {
                                     return(
-                                          <div className="row">
+                                          <div className="row" key={pod._id}>
                                           <div className="col s8">
                                             <div className="card blue-grey darken-1">
                                               <div className="card-content white-text">
@@ -66,6 +67,7 @@ class Dashboard extends React.Component {
                                     </div>
                                 )}
                             </div>
+                            {this.findYourTurn(context.currentUserId, context.currentUser)}
                         </>
                     )}}
             </AppContext.Consumer>

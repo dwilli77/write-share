@@ -1,5 +1,6 @@
 import React from 'react';
 import { AppContext } from '../../Context';
+import API from '../../utils/API'
 
 
 class Register extends React.Component {
@@ -9,6 +10,9 @@ class Register extends React.Component {
         password: "",
         password2: "",
         about_me: "",
+        currentUser: "",
+        currentUserId: "",
+        registerFail: false
     }
 
     checkInputs = () => {
@@ -25,11 +29,26 @@ class Register extends React.Component {
         });
       };
 
+      handleRegister = () => {
+        API.register({
+            email: this.state.email,
+            username: this.state.username,
+            password: this.state.password,
+            aboutMe: this.state.about_me
+        }).then(res => {
+            if (res.status === 200 && res.data !== 'user already exists'){
+                this.setState({currentUser: res.data.username, currentUserId:res.data._id})
+            } else {
+                this.setState({registerFail: true})
+            }
+        }).catch(err=> console.log(err))
+    }
+
     render() {
     return (
         <AppContext.Consumer>
             {value=> {
-                const {handleRegister} = value;
+                const {contextLogin} = value;
                 return (
         <div className="container">
             <div className="row">
@@ -74,7 +93,16 @@ class Register extends React.Component {
                             </div>
                         </div>
                     </div>
-                    <button disabled={!this.checkInputs()} className="btn waves-effect waves-light btn-large right main-button-font orange darken-3"   onClick={() => handleRegister(this.state.email,this.state.username, this.state.password,this.state.about_me)} >Submit
+
+                    {this.state.registerFail ? (
+                        <div className="card-panel red lighten-3 red-text text-darken-4">Registration Failed: Try Again - email may already be in use</div>
+                    ): (
+                        ""
+                    )}
+
+                    {this.state.currentUser ? contextLogin(this.state.currentUser, this.state.currentUserId) : ""}
+
+                    <button disabled={!this.checkInputs()} className="btn waves-effect waves-light btn-large right main-button-font orange darken-3"   onClick={this.handleRegister} >Submit
                         <i className="material-icons right">send</i>
                     </button>
                 </div>

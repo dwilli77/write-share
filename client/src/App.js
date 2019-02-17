@@ -24,7 +24,7 @@ class App extends Component {
             <div className="col s10">
               <AppContext.Consumer>
                 {value => {
-                  const {currentUser, currentUserId, handleNewPod} = value
+                  const {currentUser, currentUserId} = value
                   return(
                   <>
                     <Route exact path="/" component={currentUser ? Dashboard : Welcome} />
@@ -53,7 +53,7 @@ class App extends Component {
                       !currentUser ? (
                         <Redirect to="/" />
                       ) : (
-                        <CreatePod userId={currentUserId} user={currentUser} handleNewPod={handleNewPod} />
+                        <CreatePod userId={currentUserId} user={currentUser} />
                       )
                       )} />
                       <Route exact path="/search" render={() => (

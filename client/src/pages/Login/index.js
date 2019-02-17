@@ -1,11 +1,15 @@
 import React from 'react'
 import {AppContext} from '../../Context'
+import API from '../../utils/API'
 
 
 class Login extends React.Component {
     state = {
         email: "",
-        password: ""
+        password: "",
+        currentUser: "",
+        currentUserId: "",
+        loginFail: false
     }
 
     handleInputChange = event => {
@@ -15,11 +19,26 @@ class Login extends React.Component {
         });
       };
 
+      handleLogin = () => {
+        API.login({
+            email: this.state.email,
+            password: this.state.password
+        })
+        .then(res => {
+            if (res.data === 'no user' || res.data === 'incorrect password') {
+                this.setState({loginFail: true, password: ""});
+            }else{
+                this.setState({currentUser: res.data.username, currentUserId:res.data._id})
+            }
+        })
+        .catch(err => console.log(err))
+    }
+
     render() {
     return (
         <AppContext.Consumer>
             {value => {
-                const {handleLogin} = value;
+                const {contextLogin} = value;
                 return(
                 <div className="container login-form">
                     <div className="row">
@@ -39,13 +58,22 @@ class Login extends React.Component {
                             <label className="black-text" htmlFor="password1">Password</label>
                         </div>
                     </div>
+                    {this.state.loginFail ? (
+                        <div className="card-panel red lighten-3 red-text text-darken-4">Login Failed: Try Again</div>
+                    ): (
+                        ""
+                    )}
+
+                    {this.state.currentUser ? contextLogin(this.state.currentUser, this.state.currentUserId) : ""}
                     
-                    <button className="btn waves-effect waves-light btn-large right main-button-font submit-button orange darken-3"  onClick={() => handleLogin(this.state.email,this.state.password)}>Submit
+                    <button className="btn waves-effect waves-light btn-large right main-button-font submit-button orange darken-3"  onClick={this.handleLogin}>Submit
                             <i className="material-icons right">send</i>
                     </button>
 
                 </div>
-                )}}
+
+                )
+                }}
         </AppContext.Consumer>
     )
     }
