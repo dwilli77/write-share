@@ -10,7 +10,7 @@ const Welcome = props => {
             <p>How do we work?</p>
             <p>Followed by a video tutorial to registering/login writing your first pod</p>
 
-            <h4><Link to="/register">Register Here and Start Writing Today</Link></h4>
+            <h4 className="registration-link"><Link to="/register">Register Here and Start Writing Today</Link></h4>
         </div>        
     )
 

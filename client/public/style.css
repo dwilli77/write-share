@@ -17,6 +17,10 @@ body, html {
     font-size: 18px;
 }
 
+.registration-link:hover {
+    text-decoration: underline;
+}
+
 .pod-link {
     font-size: 20px;
     font-weight: bold;

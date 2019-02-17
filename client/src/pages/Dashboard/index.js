@@ -13,7 +13,10 @@ class Dashboard extends React.Component {
                         <>
                             <UserSidebar />
                             <div className="col s10">
-                                <h4>This is my Dashboard</h4>
+                                <h4>Hi {context.currentUser}! Welcome to Write Share!</h4>
+                                <p>Search, Create, and Navigate Pods on the left sidebar</p>
+                                <h5>It's your turn in these Pods!</h5>
+
                             </div>
                         </>
                     )}}
