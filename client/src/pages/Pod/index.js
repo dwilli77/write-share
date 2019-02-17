@@ -63,7 +63,10 @@ class Pod extends React.Component {
             contentCreator: this.state.activeParticipant,
             podId: this.state.podId
         })
-        .then(res => this.iterateUser())
+        .then(res => {
+            this.iterateUser();
+            this.setState({newContent: ""})
+        })
         .catch(err=> console.log(err))
     }
 
