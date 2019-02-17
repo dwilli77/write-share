@@ -41,6 +41,7 @@ module.exports = {
   read: function(req,res) {
     db.Pod
     .find({}).then(result => res.json(result))
+    .catch(err => res.status(422).json(err))
   },
   joinPod: function(req, res) {
     db.Pod
@@ -50,5 +51,11 @@ module.exports = {
     })
     .then(dbUser => res.json(dbUser))
     .catch(err => res.status(422).json(err))
+  },
+  yourTurn: function(req, res) {
+    db.Pod
+    .find({participantIds: req.body.id, activeParticipant: req.body.username}).populate('content')
+    .then(result=> res.json(result))
+    .catch(err=> res.status(422).json(err));
   }
 };

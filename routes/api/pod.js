@@ -18,4 +18,7 @@ router.route('/nextuser')
 router.route('/join')
     .post(podController.joinPod)
 
+router.route('/yourturn')
+    .post(podController.yourTurn)
+    
 module.exports = router;
